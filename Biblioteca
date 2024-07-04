@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca 'Mi pasión por la lectura'</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+
+        /* Estilos del encabezado */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header .logo img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 15px;
+        }
+
+        /* Estilos de las secciones */
+        section {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        /* Estilos del catálogo */
+        #catalogo {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        #searchBar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        #bookList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .book {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .book img {
+            max-width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .book h3 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .book p {
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100px;
+        }
+
+        .button-container button:hover {
+            transform: scale(1.05);
+        }
+
+        .rent-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        .buy-button {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+        }
+
+        /* Estilos del formulario de contacto */
+        #contacto {
+            background-color: #f9f9f9;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 4px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos del pie de página */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Estilos del modal */
+        #loginModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        #loginModalContent {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #actionButtons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            color: #4CAF50;
+            text-align: right;
+            display: block;
+        }
+
+        .ticket {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Biblioteca Virtual">
+        </div>
+        <h1>Biblioteca 'Mi pasión por la lectura'</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#login" onclick="showModal()">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home">
+        <div class="container">
+            <h2>Bienvenidos a la Biblioteca 'Mi pasión por la lectura'</h2>
+            <p>Encuentra tus libros favoritos en nuestro extenso catálogo.</p>
+        </div>
+    </section>
+
+    <section id="nosotros">
+        <div class="container">
+            <h2>Nosotros</h2>
+            <p><strong>Descripción:</strong> Somos una biblioteca virtual dedicada a proporcionar acceso a una amplia variedad de libros digitales. Nuestra misión es promover la accesibilidad, calidad, innovación y compromiso con nuestros usuarios.</p>
+        </div>
+    </section>
+
+    <section id="catalogo">
+        <div class="container">
+            <h2>Catálogo</h2>
+            <input type="text" id="searchBar" placeholder="Buscar libros...">
+            <div id="bookList">
+                <!-- Aquí se cargarán dinámicamente los libros -->
+                <div class="book">
+                    <img src="libro1.jpg" alt="Libro 1">
+                    <h3>El Código Da Vinci</h3>
+                    <p>Autor: Dan Brown</p>
+                    <p>Género: Novela de misterio</p>
+                    <p>Precio: $15</p>
+                    <div class="button-container">
+                        <button class="rent-button" onclick="rentBook('El Código Da Vinci', 'Dan Brown', 'Novela de misterio', 15)">Rentar</button>
+                        <button class="buy-button" onclick="buyBook('El Código Da Vinci', 'Dan Brown', 'Novela de misterio', 15)">Comprar</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="libro2.jpg" alt="Libro 2">
+                    <h3>Cien años de soledad</h3>
+                    <p>Autor: Gabriel García Márquez</p>
+                    <p>Género: Realismo mágico</p>
+                    <p>Precio: $12</p>
+                    <div class="button-container">
+                        <button class="rent-button" onclick="rentBook('Cien años de soledad', 'Gabriel García Márquez', 'Realismo mágico', 12)">Rentar</button>
+                        <button class="buy-button" onclick="buyBook('Cien años de soledad', 'Gabriel García Márquez', 'Realismo mágico', 12)">Comprar</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="libro3.jpg" alt="Libro 3">
+                    <h3>Orgullo y prejuicio</h3>
+                    <p>Autor: Jane Austen</p>
+                    <p>Género: Romance clásico</p>
+                    <p>Precio: $10</p>
+                    <div class="button-container">
+                        <button class="rent-button" onclick="rentBook('Orgullo y prejuicio', 'Jane Austen', 'Romance clásico', 10)">Rentar</button>
+                        <button class="buy-button" onclick="buyBook('Orgullo y prejuicio', 'Jane Austen', 'Romance clásico', 10)">Comprar</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="libro4.jpg" alt="Libro 4">
+                    <h3>Harry Potter y la piedra filosofal</h3>
+                    <p>Autor: J.K. Rowling</p>
+                    <p>Género: Fantasía juvenil</p>
+                    <p>Precio: $14</p>
+                    <div class="button-container">
+                        <button class="rent-button" onclick="rentBook('Harry Potter y la piedra filosofal', 'J.K. Rowling', 'Fantasía juvenil', 14)">Rentar</button>
+                        <button class="buy-button" onclick="buyBook('Harry Potter y la piedra filosofal', 'J.K. Rowling', 'Fantasía juvenil', 14)">Comprar</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="libro5.jpg" alt="Libro 5">
+                    <h3>1984</h3>
+                    <p>Autor: George Orwell</p>
+                    <p>Género: Distopía</p>
+                    <p>Precio: $11</p>
+                    <div class="button-container">
+                        <button class="rent-button" onclick="rentBook('1984', 'George Orwell', 'Distopía', 11)">Rentar</button>
+                        <button class="buy-button" onclick="buyBook('1984', 'George Orwell', 'Distopía', 11)">Comprar</button>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="libro6.jpg" alt="Libro 6">
+                    <h3>Los miserables</h3>
+                    <p>Autor: Victor Hugo</p>
+                    <p>Género: Drama histórico</p>
+                    <p>Precio: $13</p>
+                    <div class="button-container">
+                        <button class="rent-button" onclick="rentBook('Los miserables', 'Victor Hugo', 'Drama histórico', 13)">Rentar</button>
+                        <button class="buy-button" onclick="buyBook('Los miserables', 'Victor Hugo', 'Drama histórico', 13)">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <h2>Contacto</h2>
+            <form id="contactForm">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Mensaje:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Enviar mensaje</button>
+            </form>
+        </div>
+        <div id="contactMessages">
+            <!-- Aquí se mostrarán los mensajes del formulario -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Biblioteca 'Mi pasión por la lectura'. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="loginModal">
+        <div id="loginModalContent">
+            <span class="modal-close" onclick="hideModal()">&times;</span>
+            <h2>Iniciar sesión</h2>
+            <form id="loginForm" onsubmit="return false;">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+
+                <div id="actionButtons">
+                    <button type="button" onclick="login()">Iniciar sesión</button>
+                    <button type="button" onclick="hideModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Función para rentar un libro
+        function rentBook(title, author, genre, price) {
+            const ticket = `
+                <div class="ticket">
+                    <h3>Recibo de Renta</h3>
+                    <p><strong>Título:</strong> ${title}</p>
+                    <p><strong>Autor:</strong> ${author}</p>
+                    <p><strong>Género:</strong> ${genre}</p>
+                    <p><strong>Precio:</strong> $${price}</p>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', ticket);
+        }
+
+        // Función para comprar un libro
+        function buyBook(title, author, genre, price) {
+            const ticket = `
+                <div class="ticket">
+                    <h3>Recibo de Compra</h3>
+                    <p><strong>Título:</strong> ${title}</p>
+                    <p><strong>Autor:</strong> ${author}</p>
+                    <p><strong>Género:</strong> ${genre}</p>
+                    <p><strong>Precio:</strong> $${price}</p>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', ticket);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showModal();
+
+            const contactForm = document.getElementById('contactForm');
+            const contactMessages = document.getElementById('contactMessages');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+                if (name && email && message) {
+                    const messageElement = document.createElement('div');
+                    messageElement.innerHTML = `
+                        <div class="message">
+                            <p><strong>Nombre:</strong> ${name}</p>
+                            <p><strong>Email:</strong> ${email}</p>
+                            <p><strong>Mensaje:</strong> ${message}</p>
+                        </div>
+                    `;
+                    contactMessages.appendChild(messageElement);
+                    alert('Mensaje enviado. Gracias por contactarnos.');
+                    contactForm.reset();
+                } else {
+                    alert('Por favor, completa todos los campos.');
+                }
+            });
+        });
+
+        function showModal() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'block';
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'none';
+        }
+
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            // Aquí puedes agregar lógica para el inicio de sesión, como enviar una solicitud al servidor, etc.
+            console.log(`Usuario: ${username}, Contraseña: ${password}`);
+            // Simplemente ocultando el modal por ahora
+            hideModal();
+        }
+    </script>
+</body>
+</html>"
